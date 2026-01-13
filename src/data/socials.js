@@ -19,7 +19,7 @@ export const socialLinks = [
   },
   {
     name: "Email",
-    url: "mailto:your.email@example.com",
+    url: "mailto:pbhattrai88@gmail.com.com",
     icon: "mail",
     color: "hover:text-red-500"
   },

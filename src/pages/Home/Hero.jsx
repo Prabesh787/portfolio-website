@@ -39,15 +39,14 @@ const Hero = () => {
             variants={fadeInUp}
             className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4 max-w-3xl mx-auto"
           >
-            Full Stack Developer
+            Backend Developer
           </motion.p>
 
           <motion.p
             variants={fadeInUp}
             className="text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
           >
-            I build beautiful, functional web applications with modern technologies.
-            Passionate about creating exceptional user experiences.
+            Aspiring Backend Engineer building scalable APIs with Java & Spring Boot. Dedicated to efficient database design and readable code.
           </motion.p>
 
           <motion.div

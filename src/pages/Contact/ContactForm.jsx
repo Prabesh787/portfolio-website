@@ -32,14 +32,13 @@ const ContactForm = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'your.email@example.com',
-      href: 'mailto:your.email@example.com',
+      value: 'pbhattrai88@gmail.com',
+      href: 'mailto:pbhattrai88@gmail.com',
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+1 (234) 567-8900',
-      href: 'tel:+12345678900',
+      value: '+977 9825326657',
     },
     {
       icon: MapPin,

@@ -4,28 +4,28 @@ import { fadeInUp, staggerContainer } from '../../styles/animations';
 const Timeline = () => {
   const timelineItems = [
     {
-      year: '2024',
-      title: 'Senior Developer',
-      company: 'Tech Company',
-      description: 'Leading development of modern web applications and mentoring junior developers.',
+      year: '2025',
+      title: 'Java Internship',
+      company: 'Legal Remit',
+      description: 'Backend Intern developing scalable APIs with Java/Spring Boot and SQL.',
     },
     {
-      year: '2022',
-      title: 'Full Stack Developer',
+      year: '2025',
+      title: 'Data Annotator',
       company: 'Startup Inc',
       description: 'Built scalable applications using React, Node.js, and cloud technologies.',
     },
     {
-      year: '2020',
-      title: 'Junior Developer',
-      company: 'Digital Agency',
-      description: 'Started my journey in web development, working on various client projects.',
+      year: '2022',
+      title: 'Bachelor of Information Management',
+      company: 'Tribhuvan University',
+      description: 'Joined the bachelor program in Information Management.',
     },
     {
-      year: '2018',
-      title: 'Computer Science Degree',
-      company: 'University',
-      description: 'Graduated with a Bachelor\'s degree in Computer Science.',
+      year: '2022',
+      title: 'Finance Assistant',
+      company: 'Skyline Travel and Tours',
+      description: 'Handled financial records and assisted in budgeting and reporting tasks.',
     },
   ];
 
