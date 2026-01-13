@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import PageWrapper from '../../components/layout/PageWrapper';
 import SectionTitle from '../../components/common/SectionTitle';
 import Card from '../../components/ui/Card';
 import Timeline from './Timeline';
 import { fadeInUp } from '../../styles/animations';
+import { profilePic } from '../../assets/images/images';
 
 const About = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   return (
     <PageWrapper>
       <section className="py-20 bg-white dark:bg-gray-900">
@@ -14,6 +18,35 @@ const About = () => {
             title="About Me"
             subtitle="Get to Know Me"
           />
+
+          <motion.div {...fadeInUp} className="text-center mb-16">
+            <div className="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary-600 shadow-lg">
+              {!imageError ? (
+                <img 
+                  src={profilePic} 
+                  alt="Prabesh Bhattarai" 
+                  className="w-full h-full object-cover" 
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => setImageError(true)}
+                  style={{ display: imageLoaded ? 'block' : 'none' }}
+                />
+              ) : null}
+              {(!imageLoaded && !imageError) && (
+                <div className="w-full h-full bg-gray-300 dark:bg-gray-700 animate-pulse rounded-full"></div>
+              )}
+              {imageError && (
+                <div className="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gray-400 dark:bg-gray-600 rounded-full"></div>
+                </div>
+              )}
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              Prabesh Bhattarai
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Backend Developer
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
             <motion.div {...fadeInUp}>

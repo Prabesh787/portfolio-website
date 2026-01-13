@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { socialLinks } from '../../data/socials';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { signature } from '../../assets/images/images';
 
 const iconMap = {
   github: Github,
@@ -18,9 +19,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent mb-4">
-              Portfolio
-            </h3>
+            <motion.img
+              src={signature}
+              alt="Prabesh Bhattarai Signature"
+              className="h-10 mb-4 dark:invert"
+              whileHover={{ scale: 1.05 }}
+            />
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               A modern portfolio showcasing my projects and skills.
             </p>

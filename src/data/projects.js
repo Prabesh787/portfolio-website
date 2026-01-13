@@ -1,9 +1,11 @@
+import { dkpCover } from "../assets/images/images";
+
 export const projects = [
   {
     id: 1,
     title: "E-commerce Website Frontend Project",
     description: "A modern and responsive e-commerce frontend built with React and Tailwind CSS, featuring product browsing, cart management, user authentication, and secure payment integration. The application includes an admin panel for managing products, orders, and users, along with a smooth checkout flow and real-time state management. Designed with scalability, performance, and user experience in mind.",
-    image: "/placeholder-project.jpg",
+    image: dkpCover,
     technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS", "JWT", "Khalti"],
     category: "web",
     featured: true,

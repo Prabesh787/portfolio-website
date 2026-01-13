@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Download } from 'lucide-react';
+import { ArrowDown, Download, ViewIcon } from 'lucide-react';
 import Button from '../../components/common/Button';
 import { fadeInUp, staggerContainer } from '../../styles/animations';
+import resume from '../../assets/resume/cv.pdf';
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -65,11 +66,12 @@ const Hero = () => {
             <Button
               variant="outline"
               size="lg"
-              href="/resume.pdf"
+              href={resume}
+              target="_blank"
               className="group"
             >
-              <Download className="mr-2 w-5 h-5" />
-              Download Resume
+              <ViewIcon className="mr-2 w-5 h-5" />
+              View Resume
             </Button>
           </motion.div>
 
