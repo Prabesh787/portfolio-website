@@ -12,21 +12,21 @@ const Timeline = () => {
     {
       year: '2025',
       title: 'Data Annotator',
-      company: 'Startup Inc',
+      company: 'Accelerated Komputing',
       description: 'Built scalable applications using React, Node.js, and cloud technologies.',
+    },
+    {
+      year: '2022-2024',
+      title: 'Finance Assistant',
+      company: 'Skyline Travel and Tours',
+      description: 'Handled financial records and assisted in budgeting and reporting tasks.',
     },
     {
       year: '2022',
       title: 'Bachelor of Information Management',
       company: 'Tribhuvan University',
       description: 'Joined the bachelor program in Information Management.',
-    },
-    {
-      year: '2022',
-      title: 'Finance Assistant',
-      company: 'Skyline Travel and Tours',
-      description: 'Handled financial records and assisted in budgeting and reporting tasks.',
-    },
+    }
   ];
 
   return (

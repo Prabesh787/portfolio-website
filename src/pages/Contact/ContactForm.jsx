@@ -43,7 +43,7 @@ const ContactForm = () => {
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Your City, Country',
+      value: 'Bhaktapur, Nepal',
       href: '#',
     },
   ];

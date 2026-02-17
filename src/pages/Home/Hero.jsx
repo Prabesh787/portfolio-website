@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Download, ViewIcon } from 'lucide-react';
 import Button from '../../components/common/Button';
@@ -5,6 +6,26 @@ import { fadeInUp, staggerContainer } from '../../styles/animations';
 import resume from '../../assets/resume/cv.pdf';
 
 const Hero = () => {
+  const [typedText, setTypedText] = useState('');
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  useEffect(() => {
+    const fullText = 'Prabesh Bhattarai';
+    let index = 0;
+
+    const interval = setInterval(() => {
+      index += 1;
+      setTypedText(fullText.slice(0, index));
+
+      if (index === fullText.length) {
+        clearInterval(interval);
+        setIsTypingComplete(true);
+      }
+    }, 200);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollToProjects = () => {
     const element = document.getElementById('projects');
     if (element) {
@@ -21,7 +42,10 @@ const Hero = () => {
         <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-200 dark:bg-pink-900/30 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <div
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center"
+        style={{ fontFamily: '"Poppins", system-ui, sans-serif' }}
+      >
         <motion.div
           variants={staggerContainer}
           initial="initial"
@@ -31,8 +55,16 @@ const Hero = () => {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
               Hi, I'm{' '}
               <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                Prabesh Bhattarai
+                {typedText}
               </span>
+              {!isTypingComplete && (
+                <span
+                  className="inline-block w-[0.6ch] text-4xl md:text-5xl font-light text-gray-400 dark:text-gray-500 align-baseline"
+                  style={{ animation: 'pulse 0.5s ease-in-out infinite' }}
+                >
+                  |
+                </span>
+              )}
             </h1>
           </motion.div>
 

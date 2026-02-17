@@ -16,14 +16,14 @@ export const projects = [
   {
     id: 2,
     title: "Project Two",
-    description: "An e-commerce platform with payment integration and inventory management. Built with modern technologies for optimal performance.",
+    description: "Hospital Management System developed using Spring Boot, designed to manage core hospital operations such as patients, doctors, appointments, and medical records. The application uses PostgreSQL for persistent data storage and Redis for caching and performance optimization. Cloudinary is integrated for secure media storage (e.g., reports and images). The application is Dockerized for consistent deployment and is hosted on Render. Swagger (OpenAPI) is used as the API client and documentation tool for testing and interaction with REST endpoints.",
     image: "/placeholder-project.jpg",
     technologies: ["Next.js", "Stripe", "PostgreSQL", "TypeScript"],
     category: "web",
     featured: true,
-    github: "https://github.com",
-    live: "https://example.com",
-    date: "2024-02-20"
+    github: "https://github.com/Prabesh787/portfolio-website",
+    live: "https://hms-v1-1.onrender.com/swagger-ui/index.html#",
+    date: "2025-12-20"
   },
   {
     id: 3,

@@ -38,7 +38,7 @@ const Navbar = () => {
             <motion.img
               src={signature}
               alt="Prabesh Bhattarai Signature"
-              className="h-11 dark:invert"
+              className="h-12 dark:invert"
               whileHover={{ scale: 1.05 }}
             />
           </Link>
