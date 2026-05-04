@@ -7,6 +7,7 @@ export const NAV_LINKS = [
   { name: "Projects", path: "/projects" },
   { name: "Skills", path: "/skills" },
   { name: "Contact", path: "/contact" },
+  { name: "Gallery", path: "/gallery" },
 ];
 
 export const SOCIAL_LINKS = [
