@@ -1,82 +1,65 @@
-# Portfolio Website
+# Prabesh Bhattarai — Portfolio
 
-A modern, clean portfolio website built with React, Tailwind CSS, and Framer Motion.
+Personal portfolio site of Prabesh Bhattarai, a backend developer working with Java, Spring Boot, and Node.js. A React single-page app with animated sections for projects, skills, experience, and a personal photo gallery.
 
-## Features
+**Live:** _add your deployed URL here_ · **Repo:** https://github.com/Prabesh787/portfolio-website
 
-- 🎨 Clean and modern UI design
-- 🌙 Dark mode support
-- 📱 Fully responsive
-- ✨ Smooth animations with Framer Motion
-- 🚀 Fast and optimized
-- 🎯 Easy to customize
+## Highlights
+
+- **Six routes** — Home, About, Projects, Skills, Contact, Gallery (`react-router-dom`)
+- **Dark / light mode** — class-based Tailwind theming, persisted to `localStorage` and applied before first paint (no flash)
+- **Motion throughout** — Framer Motion page transitions, staggered reveals, and a typewriter hero
+- **Filterable projects** — category filter (web / mobile / backend) driven by a plain data file
+- **Photo gallery** — events grouped into albums with a lightbox modal
+- **Content as data** — projects, skills, socials, and gallery live in `src/data/`; updating them needs no component edits
 
 ## Tech Stack
 
-- **React** - UI library
-- **React Router** - Routing
-- **Tailwind CSS** - Styling
-- **Framer Motion** - Animations
-- **Lucide React** - Icons
-- **Vite** - Build tool
+React 18 · Vite 5 · Tailwind CSS 3 · Framer Motion · React Router 6 · Lucide Icons
 
 ## Getting Started
 
-### Installation
+Requires Node.js 18+.
 
-1. Install dependencies:
 ```bash
 npm install
-```
-
-2. Start the development server:
-```bash
-npm run dev
-```
-
-3. Build for production:
-```bash
-npm run build
+npm run dev      # http://localhost:5173
+npm run build    # outputs to dist/
+npm run preview  # preview the production build
 ```
 
 ## Project Structure
 
 ```
 src/
-├── app/              # Main app files and routing
-├── assets/           # Images, icons, and resume
-├── components/       # Reusable components
-├── data/             # Data files (projects, skills, etc.)
-├── hooks/            # Custom React hooks
-├── pages/            # Page components
-├── styles/           # Animation styles
-└── utils/            # Utility functions
+├── app/          # entry point, App shell, route definitions
+├── assets/       # images, gallery photos, resume PDF
+├── components/   # common/ (Navbar, Footer, Button), layout/, ui/ (Card, Modal, Badge)
+├── data/         # projects.js, skills.js, socials.js, newGallery.js
+├── hooks/        # useTheme, useScrollToTop
+├── pages/        # Home, About, Projects, Skills, Contact, GalleryPage
+├── styles/       # shared Framer Motion variants
+└── utils/        # constants and helpers
 ```
 
-## Customization
+## Making It Yours
 
-### Update Your Information
+| What | Where |
+| --- | --- |
+| Name, bio, role | `src/pages/Home/Hero.jsx`, `src/pages/About/About.jsx` |
+| Work / education timeline | `src/pages/About/Timeline.jsx` |
+| Projects | `src/data/projects.js` |
+| Skills | `src/data/skills.js` |
+| Social links | `src/data/socials.js` |
+| Site title and nav | `src/utils/constants.js`, `index.html` |
+| Gallery albums | `src/data/newGallery.js` |
+| Resume | replace `src/assets/resume/cv.pdf` |
+| Theme colors | `tailwind.config.js` (`primary` scale) |
 
-1. **Personal Info**: Edit `src/data/socials.js` and `src/utils/constants.js`
-2. **Projects**: Update `src/data/projects.js` with your projects
-3. **Skills**: Modify `src/data/skills.js` with your skills
-4. **About Section**: Edit `src/pages/About/About.jsx` and `src/pages/About/Timeline.jsx`
-5. **Hero Section**: Update `src/pages/Home/Hero.jsx` with your name and description
+See [SETUP.md](SETUP.md) for a step-by-step customization checklist.
 
-### Styling
-
-- Colors can be customized in `tailwind.config.js`
-- Global styles are in `src/index.css`
-- Component styles use Tailwind utility classes
-
-### Adding Images
-
-Place your images in:
-- `src/assets/images/` - Project images and photos
-- `src/assets/icons/` - Custom icons
-- `src/assets/resume/` - Resume PDF
+> **Note:** the contact form is UI-only — it shows a confirmation alert on submit. Wire it to a backend or a service like Formspree before going live.
 
 ## License
 
 MIT
-
