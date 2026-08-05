@@ -2,7 +2,7 @@
 
 Personal portfolio site of Prabesh Bhattarai, a backend developer working with Java, Spring Boot, and Node.js. A React single-page app with animated sections for projects, skills, experience, and a personal photo gallery.
 
-**Live:** _add your deployed URL here_ · **Repo:** https://github.com/Prabesh787/portfolio-website
+**Live:** https://prabesh-bhattarai.com.np/ · **Repo:** https://github.com/Prabesh787/portfolio-website
 
 ## Highlights
 
