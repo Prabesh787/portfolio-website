@@ -104,7 +104,7 @@ const About = () => {
               </h3>
               <div className="mt-8 space-y-5 text-ink-600 dark:text-ink-200 leading-relaxed text-pretty">
                 <p>
-                  Now a Junior Software Engineer at Lumbini Group, writing
+                  Now a Software Developer at Lumbini Group, writing
                   Java + Spring Boot every day, I care about secure, performant server‑side applications and
                   thoughtful database design — the kind that ages well.
                 </p>

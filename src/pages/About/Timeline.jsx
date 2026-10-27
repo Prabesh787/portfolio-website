@@ -15,7 +15,7 @@ const ExtLink = ({ href, children }) => (
 export const experience = [
   {
     year: 'Sep 2025 — Present',
-    title: 'Junior Software Engineer',
+    title: 'Software Developer',
     company: 'Lumbini Group (Legal Remit)',
     description: (
       <>
