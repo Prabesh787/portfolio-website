@@ -43,7 +43,7 @@ export const projects = [
     technologies: ["Flutter", "Dart", "Node.js", "Offline sync"],
     category: "mobile",
     featured: false,
-    github: "",
+    github: "https://github.com/Prabesh787/retail_daily_records",
     live: "",
   },
 ];

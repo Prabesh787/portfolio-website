@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Database, Cpu, Sparkles, BookOpen } from 'lucide-react';
+import { Code2, Database, Cpu, Sparkles, BookOpen, Plane } from 'lucide-react';
 import PageWrapper from '../../components/layout/PageWrapper';
 import SectionTitle from '../../components/common/SectionTitle';
 import SpotlightCard from '../../components/ui/SpotlightCard';
-import Timeline from './Timeline';
+import Timeline, { experience, education } from './Timeline';
 import { profilePic } from '../../assets/images/images';
 import { easeOut } from '../../styles/animations';
+import { SHOW_GALLERY } from '../../utils/constants';
 
 const focusAreas = [
   {
@@ -29,7 +30,7 @@ const focusAreas = [
   },
   {
     icon: Cpu,
-    title: 'AI &amp; Machine Learning',
+    title: 'AI & Machine Learning',
     body:
       'Exploring ML models and data pipelines to weave intelligent, automated layers into traditional software.',
   },
@@ -38,6 +39,12 @@ const focusAreas = [
     title: 'Continuous Learning',
     body:
       'Following modern backend currents — microservices, observability, cloud‑native deployment.',
+  },
+  {
+    icon: Plane,
+    title: 'Travel-Tech Domain',
+    body:
+      'Years inside a travel agency — air ticketing, fares, reservations and the operations around them — so I build booking and payment systems like Fly Lumbini with the industry\'s real workflows in mind.',
   },
 ];
 
@@ -59,17 +66,20 @@ const About = () => {
               className="lg:col-span-5"
             >
               <div className="relative rounded-2xl overflow-hidden border border-ink-100 dark:border-ink-700/60 bg-paper-200 dark:bg-ink-800/40 aspect-[4/5] max-w-sm">
+                {/* backdrop for the transparent cut-out portrait */}
+                <div className="absolute inset-0 bg-code-grid opacity-70" />
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/3 w-72 h-72 rounded-full bg-accent-400/25 dark:bg-accent-600/20 blur-3xl" />
                 {!imgError ? (
                   <img
                     src={profilePic}
                     alt="Prabesh Bhattarai"
-                    className="w-full h-full object-cover"
+                    className="relative w-full h-full object-contain object-bottom pt-6 px-4"
                     onError={() => setImgError(true)}
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-accent-200 to-paper-300 dark:from-accent-900/30 dark:to-ink-700" />
                 )}
-                <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-widest bg-paper-100/90 dark:bg-ink-900/80 backdrop-blur px-2 py-1 rounded-full text-ink-700 dark:text-paper-200">
                     Bhaktapur, NP · 2026
                   </span>
@@ -94,8 +104,8 @@ const About = () => {
               </h3>
               <div className="mt-8 space-y-5 text-ink-600 dark:text-ink-200 leading-relaxed text-pretty">
                 <p>
-                  Currently interning and writing Java + Spring Boot every day,
-                  I care about secure, performant server‑side applications and
+                  Now a Junior Software Engineer at Lumbini Group, writing
+                  Java + Spring Boot every day, I care about secure, performant server‑side applications and
                   thoughtful database design — the kind that ages well.
                 </p>
                 <p>
@@ -105,7 +115,7 @@ const About = () => {
                 </p>
                 <p>
                   Outside the IDE I read, travel, take photos, and slowly
-                  collect the moments you'll find on the gallery page.
+                  collect moments{SHOW_GALLERY ? " you'll find on the gallery page" : ''}.
                 </p>
               </div>
             </motion.div>
@@ -146,8 +156,13 @@ const About = () => {
             </div>
           </div>
 
-          <SectionTitle eyebrow="Journey" title="Where I've been." />
-          <Timeline />
+          <div className="mb-24">
+            <SectionTitle eyebrow="Experience" title="Where I've worked." />
+            <Timeline items={experience} />
+          </div>
+
+          <SectionTitle eyebrow="Education" title="Where I've studied." />
+          <Timeline items={education} />
         </div>
       </section>
     </PageWrapper>

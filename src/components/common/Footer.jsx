@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { socialLinks } from '../../data/socials';
 import { Mail, ArrowUpRight } from 'lucide-react';
 import { socialIcons } from './SocialLinks';
+import { NAV_LINKS } from '../../utils/constants';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -34,14 +35,7 @@ const Footer = () => {
               Sitemap
             </p>
             <ul className="space-y-2">
-              {[
-                ['Home', '/'],
-                ['About', '/about'],
-                ['Projects', '/projects'],
-                ['Skills', '/skills'],
-                ['Gallery', '/gallery'],
-                ['Contact', '/contact'],
-              ].map(([label, path]) => (
+              {NAV_LINKS.map(({ name: label, path }) => (
                 <li key={path}>
                   <Link
                     to={path}

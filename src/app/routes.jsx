@@ -6,6 +6,7 @@ import Projects from '../pages/Projects/Projects';
 import Skills from '../pages/Skills/Skills';
 import Contact from '../pages/Contact/Contact';
 import GalleryPage from '../pages/GalleryPage';
+import { SHOW_GALLERY } from '../utils/constants';
 
 export const router = createBrowserRouter([
   {
@@ -32,10 +33,7 @@ export const router = createBrowserRouter([
         path: 'contact',
         element: <Contact />,
       },
-      {
-        path: 'gallery',
-        element: <GalleryPage />,
-      },
+      ...(SHOW_GALLERY ? [{ path: 'gallery', element: <GalleryPage /> }] : []),
     ],
   },
 ]);

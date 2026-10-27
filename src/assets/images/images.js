@@ -1,4 +1,4 @@
-import profilePic from './image.jpg';
+import profilePic from './profileCutout.png';
 import signature from './signature/signature.svg';
 import dkpCover from './project/dkpCover.jpg';
 import eduEventsCover from './project/eduEventsCover.jpg';

@@ -1,35 +1,64 @@
 import { motion } from 'framer-motion';
 import { easeOut } from '../../styles/animations';
 
-const items = [
+const ExtLink = ({ href, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-medium text-ink-800 dark:text-paper-100 underline decoration-accent-600/40 underline-offset-4 hover:decoration-accent-600 transition-colors"
+  >
+    {children}
+  </a>
+);
+
+export const experience = [
+  {
+    year: 'Sep 2025 — Present',
+    title: 'Junior Software Engineer',
+    company: 'Lumbini Group (Legal Remit)',
+    description: (
+      <>
+        Building Java/Spring Boot services for onboarding/KYC, compliance and
+        transfer tracking on <ExtLink href="https://legalremit.com">Legal Remit</ExtLink>,
+        and Node.js/Express APIs for flight search, booking and payment status
+        on <ExtLink href="https://flylumbini.com">Fly Lumbini</ExtLink>.
+      </>
+    ),
+  },
   {
     year: '2025',
-    title: 'Java Internship',
+    title: 'Software Development Intern',
     company: 'Legal Remit',
     description:
-      'Backend Intern shipping scalable APIs with Java, Spring Boot, and SQL.',
+      'Backend intern shipping scalable APIs with Java, Spring Boot, and SQL.',
   },
   {
     year: '2025',
     title: 'Data Annotator',
     company: 'Accelerated Komputing',
-    description: 'Built scalable applications with React, Node.js, and cloud tools.',
+    description: 'Labelled and reviewed data used to train machine-learning models.',
   },
   {
     year: '2022 — 2024',
     title: 'Finance Assistant',
     company: 'Skyline Travel and Tours',
-    description: 'Handled financial records, budgeting, and reporting.',
-  },
-  {
-    year: '2022',
-    title: 'Bachelor of Information Management',
-    company: 'Tribhuvan University',
-    description: 'Began undergraduate studies in Information Management.',
+    description:
+      'Managed finances and supported air-ticketing operations — reservations, fares and supplier settlements.',
   },
 ];
 
-const Timeline = () => {
+export const education = [
+  {
+    year: '2022 — 2026',
+    title: 'Bachelor of Information Management (BIM)',
+    company: 'Tribhuvan University',
+    description:
+      'Undergraduate degree combining computer science, software development and management.',
+  },
+];
+
+const Timeline = ({ items }) => {
   return (
     <ol className="relative">
       <span className="absolute left-[6px] top-2 bottom-2 w-px bg-ink-100 dark:bg-ink-700/60" />
@@ -53,12 +82,16 @@ const Timeline = () => {
               <h4 className="font-sans font-semibold text-xl md:text-2xl tracking-tight text-ink-800 dark:text-paper-100 leading-tight">
                 {it.title}
               </h4>
-              <p className="mt-1 text-accent-700 dark:text-accent-400 text-sm font-medium">
-                {it.company}
-              </p>
-              <p className="mt-2 text-ink-600 dark:text-ink-200 text-sm md:text-base leading-relaxed max-w-2xl">
-                {it.description}
-              </p>
+              {it.company && (
+                <p className="mt-1 text-accent-700 dark:text-accent-400 text-sm font-medium">
+                  {it.company}
+                </p>
+              )}
+              {it.description && (
+                <p className="mt-2 text-ink-600 dark:text-ink-200 text-sm md:text-base leading-relaxed max-w-2xl">
+                  {it.description}
+                </p>
+              )}
             </div>
           </div>
         </motion.li>
