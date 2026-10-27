@@ -1,112 +1,129 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Github } from 'lucide-react';
-import Card from '../../components/ui/Card';
-import Badge from '../../components/ui/Badge';
+import { ArrowUpRight, Github } from 'lucide-react';
 import SectionTitle from '../../components/common/SectionTitle';
-import Button from '../../components/common/Button';
+import MagneticButton from '../../components/ui/MagneticButton';
 import { projects } from '../../data/projects';
-import { fadeInUp, staggerContainer } from '../../styles/animations';
+import { easeOut } from '../../styles/animations';
 
-const FeaturedProjects = () => {
-  const featuredProjects = projects.filter(project => project.featured).slice(0, 2);
+const FeaturedRow = ({ project, index }) => {
+  const [hovered, setHovered] = useState(false);
+  // Rows without a live URL render as plain blocks instead of dead links.
+  const Wrapper = project.live ? 'a' : 'div';
+  const linkProps = project.live
+    ? { href: project.live, target: '_blank', rel: 'noopener noreferrer' }
+    : {};
+  const showVisit = hovered && Boolean(project.live);
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          title="Featured Projects"
-          subtitle="My Work"
-        />
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, ease: easeOut, delay: index * 0.05 }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      className="group relative border-t border-ink-100 dark:border-ink-700/50"
+    >
+      <Wrapper
+        {...linkProps}
+        className="grid grid-cols-12 gap-4 py-8 md:py-10"
+      >
+        <div className="col-span-1 hidden md:block">
+          <span className="font-mono text-xs text-ink-400 dark:text-ink-300">
+            0{index + 1}
+          </span>
+        </div>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-        >
-          {featuredProjects.map((project, index) => (
-            <motion.div key={project.id} variants={fadeInUp}>
-              <Card className="h-full flex flex-col">
-                <div className="relative h-48 overflow-hidden">
-                  {project.image && project.image !== "/placeholder-project.jpg" ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => e.target.style.display = 'none'}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-primary-400 to-purple-500 flex items-center justify-center">
-                      <span className="text-6xl opacity-20">🚀</span>
-                    </div>
-                  )}
-                  {project.featured && (
-                    <div className="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-2 py-1">
-                      <Badge variant="primary">Featured</Badge>
-                    </div>
-                  )}
-                </div>
-                <div className="p-6 flex-grow flex flex-col">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      {project.title}
-                    </h3>
-                    <Badge variant="primary">{project.category}</Badge>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.slice(0, 5).map((tech) => (
-                      <Badge key={tech} variant="default">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                  <div className="flex gap-3">
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      href={project.live}
-                      className="flex-1"
-                      target="_blank"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      href={project.github}
-                      className="flex-1"
-                      target="_blank"
-                    >
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </Button>
-                  </div>
-                </div>
-              </Card>
+        <div className="col-span-12 md:col-span-7">
+          <h3 className="font-sans font-semibold text-2xl md:text-4xl tracking-tight leading-tight text-ink-800 dark:text-paper-100">
+            {project.title}
+          </h3>
+          <p className="mt-3 max-w-xl text-ink-600 dark:text-ink-200 text-pretty leading-relaxed line-clamp-3">
+            {project.description}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.technologies.slice(0, 5).map((t) => (
+              <span
+                key={t}
+                className="font-mono text-[11px] uppercase tracking-wider text-ink-500 dark:text-ink-300 px-2 py-0.5 border border-ink-200 dark:border-ink-700/60 rounded-full"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="col-span-12 md:col-span-4 flex md:justify-end items-center">
+          <div className="relative w-full md:w-72 aspect-[4/3] overflow-hidden rounded-xl border border-ink-100 dark:border-ink-700/60 bg-paper-200 dark:bg-ink-800/40">
+            {project.image && project.image !== '/placeholder-project.jpg' ? (
+              <motion.img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                animate={{ scale: hovered ? 1.06 : 1 }}
+                transition={{ duration: 0.7, ease: easeOut }}
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-accent-200 via-paper-200 to-accent-100 dark:from-accent-900/30 dark:via-ink-800 dark:to-accent-900/20" />
+            )}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center bg-ink-900/0"
+              animate={{ backgroundColor: showVisit ? 'rgba(10,12,11,0.45)' : 'rgba(10,12,11,0)' }}
+            >
+              <motion.span
+                animate={{
+                  opacity: showVisit ? 1 : 0,
+                  scale: showVisit ? 1 : 0.85,
+                }}
+                transition={{ duration: 0.3, ease: easeOut }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-paper-100 text-ink-800 font-mono text-[11px] uppercase tracking-widest"
+              >
+                Visit <ArrowUpRight className="w-3.5 h-3.5" />
+              </motion.span>
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+        </div>
+      </Wrapper>
+    </motion.div>
+  );
+};
 
-        <motion.div
-          className="text-center mt-12"
-          {...fadeInUp}
-        >
-          <Link to="/projects">
-            <Button variant="outline" size="lg">
-              View All Projects
-            </Button>
+const FeaturedProjects = () => {
+  const featured = projects.filter((p) => p.featured).slice(0, 3);
+
+  return (
+    <section id="featured-work" className="relative py-24 md:py-32">
+      <div className="container-page">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          <SectionTitle eyebrow="Selected work" title="A few things I'm proud of." />
+          <Link
+            to="/projects"
+            className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-500 dark:text-ink-300 link-underline self-start md:self-auto"
+          >
+            All projects →
           </Link>
-        </motion.div>
+        </div>
+
+        <div className="border-b border-ink-100 dark:border-ink-700/50">
+          {featured.map((p, i) => (
+            <FeaturedRow key={p.id} project={p} index={i} />
+          ))}
+        </div>
+
+        <div className="mt-12 flex items-center gap-4">
+          <Link to="/projects">
+            <MagneticButton variant="outline" size="md">
+              <Github className="w-4 h-4" />
+              Browse all projects
+              <ArrowUpRight className="w-4 h-4" />
+            </MagneticButton>
+          </Link>
+        </div>
       </div>
     </section>
   );
 };
 
 export default FeaturedProjects;
-

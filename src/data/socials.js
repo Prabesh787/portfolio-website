@@ -1,27 +1,23 @@
 export const socialLinks = [
   {
     name: "GitHub",
+    handle: "@Prabesh787",
     url: "https://github.com/Prabesh787",
     icon: "github",
-    color: "hover:text-gray-900 dark:hover:text-gray-100"
   },
   {
     name: "LinkedIn",
+    handle: "in/prabesh-bhattarai",
     url: "https://www.linkedin.com/in/prabesh-bhattarai-a7a8082b3/",
     icon: "linkedin",
-    color: "hover:text-blue-600"
-  },
-  {
-    name: "Twitter",
-    url: "https://twitter.com",
-    icon: "twitter",
-    color: "hover:text-blue-400"
   },
   {
     name: "Email",
-    url: "mailto:pbhattrai88@gmail.com.com",
+    handle: "pbhattrai88@gmail.com",
+    url: "mailto:pbhattrai88@gmail.com",
     icon: "mail",
-    color: "hover:text-red-500"
   },
 ];
 
+// Profiles only (no email) — used for icon rows in the navbar / contact page.
+export const profileLinks = socialLinks.filter((s) => s.icon !== "mail");

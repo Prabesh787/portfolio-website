@@ -1,130 +1,128 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Download, ViewIcon } from 'lucide-react';
-import Button from '../../components/common/Button';
-import { fadeInUp, staggerContainer } from '../../styles/animations';
+import { ArrowDown, ArrowUpRight, FileText } from 'lucide-react';
+import MagneticButton from '../../components/ui/MagneticButton';
+import RevealText from '../../components/ui/RevealText';
+import Marquee from '../../components/ui/Marquee';
+import { easeOut } from '../../styles/animations';
 import resume from '../../assets/resume/cv.pdf';
 
+const stack = [
+  'Java',
+  'Spring Boot',
+  'PostgreSQL',
+  'REST APIs',
+  'Redis',
+  'Docker',
+  'Node.js',
+  'React',
+  'MongoDB',
+];
+
 const Hero = () => {
-  const [typedText, setTypedText] = useState('');
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
-
-  useEffect(() => {
-    const fullText = 'Prabesh Bhattarai';
-    let index = 0;
-
-    const interval = setInterval(() => {
-      index += 1;
-      setTypedText(fullText.slice(0, index));
-
-      if (index === fullText.length) {
-        clearInterval(interval);
-        setIsTypingComplete(true);
-      }
-    }, 200);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollToProjects = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollNext = () => {
+    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-900 dark:to-primary-900/20">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200 dark:bg-primary-900/30 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-200 dark:bg-pink-900/30 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+    <section className="relative min-h-screen flex flex-col justify-between pt-32 pb-10 overflow-hidden">
+      {/* code-editor grid */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-code-grid mask-radial-fade opacity-60 dark:opacity-40" />
+        <div className="absolute inset-0 grain opacity-[0.03] dark:opacity-[0.05]" />
       </div>
 
-      <div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center"
-        style={{ fontFamily: '"Poppins", system-ui, sans-serif' }}
-      >
+      <div className="container-page relative">
         <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: easeOut }}
+          className="flex items-center gap-3 mb-8"
         >
-          <motion.div variants={fadeInUp}>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Hi, I'm{' '}
-              <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                {typedText}
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 animate-ping" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500 dark:text-ink-300">
+            Available for new work · Bhaktapur, Nepal
+          </span>
+        </motion.div>
+
+        <h1 className="font-hero tracking-tightest leading-[0.95] text-ink-800 dark:text-paper-100 text-[18vw] sm:text-[14vw] md:text-[10rem] lg:text-[12rem]">
+          <RevealText text="Prabesh" delay={0.1} />
+          <br />
+          <span className="italic text-ink-500 dark:text-ink-300">
+            <RevealText text="Bhattarai." delay={0.25} />
+          </span>
+        </h1>
+
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: easeOut, delay: 0.5 }}
+            className="md:col-span-7 max-w-xl"
+          >
+            <p className="font-mono text-xs tracking-[0.12em] text-ink-500 dark:text-ink-300 mb-4">
+              <span className="text-accent-700 dark:text-accent-400">$</span> whoami
+              <span className="block mt-1 uppercase tracking-[0.2em] text-accent-700 dark:text-accent-400">
+                → Backend engineer · API craftsman
               </span>
-              {!isTypingComplete && (
-                <span
-                  className="inline-block w-[0.6ch] text-4xl md:text-5xl font-light text-gray-400 dark:text-gray-500 align-baseline"
-                  style={{ animation: 'pulse 0.5s ease-in-out infinite' }}
-                >
-                  |
-                </span>
-              )}
-            </h1>
+            </p>
+            <p className="text-lg md:text-xl leading-relaxed text-ink-600 dark:text-ink-200 text-pretty">
+              I architect the unseen logic of the web — building secure,
+              high‑performance APIs in Java &amp; Spring Boot, with a quiet
+              obsession for clean schemas and readable code.
+            </p>
           </motion.div>
 
-          <motion.p
-            variants={fadeInUp}
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4 max-w-3xl mx-auto"
-          >
-            Backend Developer
-          </motion.p>
-
-          <motion.p
-            variants={fadeInUp}
-            className="text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
-          >
-            Aspiring Backend Engineer building scalable APIs with Java & Spring Boot. Dedicated to efficient database design and readable code.
-          </motion.p>
-
           <motion.div
-            variants={fadeInUp}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: easeOut, delay: 0.65 }}
+            className="md:col-span-5 flex flex-wrap gap-3 md:justify-end"
           >
-            <Button
+            <MagneticButton
               variant="primary"
               size="lg"
-              onClick={scrollToProjects}
-              className="group"
+              onClick={() =>
+                document.getElementById('featured-work')?.scrollIntoView({
+                  behavior: 'smooth',
+                })
+              }
             >
-              View My Work
-              <ArrowDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              href={resume}
-              target="_blank"
-              className="group"
-            >
-              <ViewIcon className="mr-2 w-5 h-5" />
-              View Resume
-            </Button>
+              View work
+              <ArrowDown className="w-4 h-4" />
+            </MagneticButton>
+            <MagneticButton variant="outline" size="lg" href={resume} target="_blank">
+              <FileText className="w-4 h-4" />
+              Resume
+              <ArrowUpRight className="w-4 h-4" />
+            </MagneticButton>
           </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="mt-20"
-          >
-            <motion.button
-              onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-              className="text-gray-400 dark:text-gray-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <ArrowDown className="w-6 h-6 mx-auto" />
-            </motion.button>
-          </motion.div>
-        </motion.div>
+        </div>
       </div>
+
+      <div className="container-page mt-16">
+        <Marquee items={stack} />
+      </div>
+
+      <button
+        onClick={scrollNext}
+        className="container-page mt-10 flex items-center gap-3 text-ink-500 dark:text-ink-300 hover:text-ink-800 dark:hover:text-paper-100 transition-colors"
+        aria-label="Scroll down"
+      >
+        <span className="font-mono text-[11px] uppercase tracking-[0.22em]">
+          Scroll
+        </span>
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ArrowDown className="w-4 h-4" />
+        </motion.span>
+      </button>
     </section>
   );
 };
 
 export default Hero;
-

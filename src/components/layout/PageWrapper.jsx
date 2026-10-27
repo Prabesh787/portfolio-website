@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
-import { fadeIn } from '../../styles/animations';
 
 const PageWrapper = ({ children, className = '' }) => {
   return (
     <motion.div
-      className={`min-h-screen ${className}`}
-      {...fadeIn}
+      className={`relative ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
@@ -13,4 +15,3 @@ const PageWrapper = ({ children, className = '' }) => {
 };
 
 export default PageWrapper;
-

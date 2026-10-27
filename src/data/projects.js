@@ -1,10 +1,10 @@
-import { dkpCover } from "../assets/images/images";
+import { dkpCover, eduEventsCover, investCareCover, retailLedgerCover } from "../assets/images/images";
 
 export const projects = [
   {
     id: 1,
     title: "E-commerce Website Frontend Project",
-    description: "A modern and responsive e-commerce frontend built with React and Tailwind CSS, featuring product browsing, cart management, user authentication, and secure payment integration. The application includes an admin panel for managing products, orders, and users, along with a smooth checkout flow and real-time state management. Designed with scalability, performance, and user experience in mind.",
+    description: "Responsive e-commerce storefront built with React and Tailwind CSS — product browsing, cart, authentication and Khalti payments, plus an admin panel for managing products, orders and users.",
     image: dkpCover,
     technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS", "JWT", "Khalti"],
     category: "web",
@@ -15,41 +15,38 @@ export const projects = [
   },
   {
     id: 2,
-    title: "Project Two",
-    description: "Hospital Management System developed using Spring Boot, designed to manage core hospital operations such as patients, doctors, appointments, and medical records. The application uses PostgreSQL for persistent data storage and Redis for caching and performance optimization. Cloudinary is integrated for secure media storage (e.g., reports and images). The application is Dockerized for consistent deployment and is hosted on Render. Swagger (OpenAPI) is used as the API client and documentation tool for testing and interaction with REST endpoints.",
-    image: "/placeholder-project.jpg",
-    technologies: ["Next.js", "Stripe", "PostgreSQL", "TypeScript"],
+    title: "EduEvents",
+    description: "Centralized platform for colleges to publish campus events and for students to discover, register for and review them. I built the backend — authentication with OAuth sign-in, REST APIs, PayPal payment integration, real-time notifications — and handled deployment.",
+    image: eduEventsCover,
+    technologies: ["Node.js", "Express", "MongoDB", "Socket.IO", "OAuth", "PayPal"],
     category: "web",
     featured: true,
-    github: "https://github.com/Prabesh787/portfolio-website",
-    live: "https://hms-v1-1.onrender.com/swagger-ui/index.html#",
-    date: "2025-12-20"
+    github: "",
+    live: "https://event-management-frontend-9zyv.onrender.com/",
   },
   {
     id: 3,
-    title: "Mobile App",
-    description: "A cross-platform mobile application for task management. Available on both iOS and Android platforms.",
-    image: "/placeholder-project.jpg",
-    technologies: ["React Native", "Firebase", "Redux"],
-    category: "mobile",
-    featured: false,
-    github: "https://github.com",
-    live: "https://example.com",
-    date: "2024-03-10"
+    title: "Invest Care Ltd — Corporate Website & CMS",
+    description: "Public website and admin CMS for an investment holding company: React frontend, Node.js/Express content APIs and authenticated admin access for managing site content. Deployed through a CI/CD pipeline so every change is built and released consistently.",
+    image: investCareCover,
+    technologies: ["React", "Node.js", "Express", "CI/CD"],
+    category: "web",
+    featured: true,
+    github: "",
+    live: "https://investcare.com.np/",
   },
   {
     id: 4,
-    title: "API Service",
-    description: "RESTful API service with comprehensive documentation. Includes authentication, rate limiting, and error handling.",
-    image: "/placeholder-project.jpg",
-    technologies: ["Python", "FastAPI", "PostgreSQL", "Docker"],
-    category: "backend",
+    title: "Retail Ledger — Offline-First Shop Accounting App",
+    description: "Mobile app for retail shops to record supplier bills, customer bills, cheques and payments, generate supplier ledgers and manage customer credit. Works fully offline on the device and syncs with the Node.js backend once a network is available.",
+    image: retailLedgerCover,
+    technologies: ["Flutter", "Dart", "Node.js", "Offline sync"],
+    category: "mobile",
     featured: false,
-    github: "https://github.com",
-    live: "https://example.com",
-    date: "2024-04-05"
+    github: "",
+    live: "",
   },
 ];
 
-export const projectCategories = ["all", "web", "mobile", "backend"];
+export const projectCategories = ["all", "web", "mobile"];
 
