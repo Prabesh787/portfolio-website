@@ -80,12 +80,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-ink-100 dark:border-ink-700/40 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div className="mt-14 pt-8 border-t border-ink-100 dark:border-ink-700/40">
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-300">
-            © {currentYear} Prabesh Bhattarai · Crafted in Bhaktapur
-          </p>
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-300">
-            v2 · warm · tech · minimal
+            © {currentYear} Prabesh Bhattarai
           </p>
         </div>
       </div>
