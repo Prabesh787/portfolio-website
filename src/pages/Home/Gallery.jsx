@@ -1,67 +1,85 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Image as ImageIcon } from 'lucide-react';
-import Card from '../../components/ui/Card';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Image as ImageIcon } from 'lucide-react';
 import SectionTitle from '../../components/common/SectionTitle';
-import { galleryItems } from '../../data/gallery';
-import { fadeInUp, staggerContainer } from '../../styles/animations';
+import { galleryEvents } from '../../data/newGallery';
+import { easeOut } from '../../styles/animations';
 
-const Gallery = () => {
-  const [imageErrors, setImageErrors] = useState({});
-
-  const handleImageError = (itemId) => {
-    setImageErrors(prev => ({ ...prev, [itemId]: true }));
-  };
+const GalleryPreview = () => {
+  const [hover, setHover] = useState(null);
+  const events = galleryEvents.slice(0, 3);
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          title="Gallery"
-          subtitle="My Journey Through Pictures"
-        />
+    <section className="relative py-24 md:py-32 bg-paper-200/50 dark:bg-ink-950/40 border-y border-ink-100 dark:border-ink-700/40">
+      <div className="container-page">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          <SectionTitle eyebrow="Off the keyboard" title="Memories &amp; moments." />
+          <Link
+            to="/gallery"
+            className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-500 dark:text-ink-300 link-underline"
+          >
+            View gallery →
+          </Link>
+        </div>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 "
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-        >
-          {galleryItems.map((item) => (
-            <motion.div key={item.id} variants={fadeInUp}>
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="relative">
-                  {!imageErrors[item.id] ? (
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-auto object-contain"
-                      onError={() => handleImageError(item.id)}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
-                      <div className="text-center text-gray-500 dark:text-gray-400">
-                        <ImageIcon className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                        <p className="text-sm">Image not available</p>
-                      </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {events.map((ev, i) => (
+            <motion.div
+              key={ev.id}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.7, ease: easeOut, delay: i * 0.06 }}
+              onHoverStart={() => setHover(ev.id)}
+              onHoverEnd={() => setHover(null)}
+              className="group relative"
+            >
+              <Link
+                to="/gallery"
+                className="block relative overflow-hidden rounded-2xl border border-ink-100 dark:border-ink-700/60 aspect-[4/5]"
+              >
+                {ev.thumbnail ? (
+                  <motion.img
+                    src={ev.thumbnail}
+                    alt={ev.title}
+                    className="w-full h-full object-cover"
+                    animate={{ scale: hover === ev.id ? 1.05 : 1 }}
+                    transition={{ duration: 0.7, ease: easeOut }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-paper-300 dark:bg-ink-800 flex items-center justify-center">
+                    <ImageIcon className="w-10 h-10 text-ink-400" />
+                  </div>
+                )}
+                <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-ink-900/85 via-ink-900/40 to-transparent text-paper-100">
+                  <div className="flex items-end justify-between gap-2">
+                    <div>
+                      <p className="font-mono text-[10px] uppercase tracking-widest opacity-80">
+                        {ev.date}
+                      </p>
+                      <h3 className="font-sans font-semibold text-xl tracking-tight leading-tight mt-1">
+                        {ev.title}
+                      </h3>
                     </div>
-                  )}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="text-center text-white p-4">
-                      <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                      <p className="text-sm opacity-90">{item.description}</p>
-                      <p className="text-xs mt-2 opacity-75">{item.date}</p>
-                    </div>
+                    <motion.span
+                      animate={{
+                        x: hover === ev.id ? 0 : 4,
+                        opacity: hover === ev.id ? 1 : 0.7,
+                      }}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-paper-100 text-ink-800"
+                    >
+                      <ArrowUpRight className="w-4 h-4" />
+                    </motion.span>
                   </div>
                 </div>
-              </Card>
+              </Link>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Gallery;
+export default GalleryPreview;

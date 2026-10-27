@@ -5,11 +5,11 @@ import ContactForm from './ContactForm';
 const Contact = () => {
   return (
     <PageWrapper>
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-28 pb-24">
+        <div className="container-page">
           <SectionTitle
-            title="Get In Touch"
-            subtitle="Contact Me"
+            eyebrow="Contact"
+            title="Tell me about it."
           />
           <ContactForm />
         </div>
@@ -19,4 +19,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

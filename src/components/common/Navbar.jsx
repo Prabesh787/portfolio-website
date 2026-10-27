@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { NAV_LINKS } from '../../utils/constants';
 import { useTheme } from '../../hooks/useTheme';
-// import signature from '../../assets/images/signature/signature.svg';
 import { signature } from '../../assets/images/images';
+import SocialLinks from './SocialLinks';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,74 +14,92 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
         scrolled
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md'
-          : 'bg-transparent'
+          ? 'bg-paper-100/80 dark:bg-ink-900/70 backdrop-blur-xl border-b border-ink-100/60 dark:border-ink-700/40'
+          : 'bg-transparent border-b border-transparent'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-page">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="group flex items-center gap-3">
             <motion.img
               src={signature}
-              alt="Prabesh Bhattarai Signature"
-              className="h-12 dark:invert"
-              whileHover={{ scale: 1.05 }}
+              alt="Prabesh Bhattarai"
+              className="h-10 dark:invert opacity-90 group-hover:opacity-100 transition-opacity"
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                  location.pathname === link.path
-                    ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-gray-900 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-                }`}
-              >
-                {link.name}
-                {location.pathname === link.path && (
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400"
-                    layoutId="navbar-indicator"
-                  />
-                )}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map((link) => {
+              const active = location.pathname === link.path;
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`relative px-4 py-2 font-mono text-[12px] uppercase tracking-[0.16em] transition-colors duration-300 ${
+                    active
+                      ? 'text-ink-800 dark:text-paper-100'
+                      : 'text-ink-500 dark:text-ink-300 hover:text-ink-800 dark:hover:text-paper-100'
+                  }`}
+                >
+                  {link.name}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 -z-10 rounded-full bg-paper-200 dark:bg-ink-800/80 border border-ink-100 dark:border-ink-700/60"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+
+            <span className="mx-2 h-5 w-px bg-ink-200 dark:bg-ink-700/60" />
+
+            <SocialLinks className="hidden lg:flex" />
+
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="relative p-2 rounded-full text-ink-500 dark:text-ink-300 hover:text-ink-800 dark:hover:text-paper-100 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === 'light' ? (
-                <Moon className="w-5 h-5" />
-              ) : (
-                <Sun className="w-5 h-5" />
-              )}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={theme}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="block"
+                >
+                  {theme === 'light' ? (
+                    <Moon className="w-[18px] h-[18px]" />
+                  ) : (
+                    <Sun className="w-[18px] h-[18px]" />
+                  )}
+                </motion.span>
+              </AnimatePresence>
             </button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="md:hidden flex items-center gap-1">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-full text-ink-600 dark:text-ink-200 hover:bg-paper-200 dark:hover:bg-ink-800/60 transition-colors"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? (
@@ -92,39 +110,48 @@ const Navbar = () => {
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-full text-ink-600 dark:text-ink-200 hover:bg-paper-200 dark:hover:bg-ink-800/60 transition-colors"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden bg-paper-100 dark:bg-ink-900 border-t border-ink-100 dark:border-ink-700/40"
           >
-            <div className="px-4 py-4 space-y-2">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${
-                    location.pathname === link.path
-                      ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
+            <div className="container-page py-4 flex flex-col gap-1">
+              {NAV_LINKS.map((link) => {
+                const active = location.pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`px-4 py-3 rounded-xl font-mono text-[12px] uppercase tracking-[0.16em] transition-colors ${
+                      active
+                        ? 'bg-paper-200 dark:bg-ink-800/80 text-ink-800 dark:text-paper-100'
+                        : 'text-ink-500 dark:text-ink-300 hover:bg-paper-200/60 dark:hover:bg-ink-800/40'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
+              <div className="mt-2 pt-3 border-t border-ink-100 dark:border-ink-700/40 flex items-center justify-between px-2">
+                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-400 dark:text-ink-300">
+                  Find me on
+                </span>
+                <SocialLinks iconClassName="w-5 h-5" />
+              </div>
             </div>
           </motion.div>
         )}
@@ -134,4 +161,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

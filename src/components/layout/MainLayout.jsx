@@ -5,11 +5,11 @@ import { useScrollToTop } from '../../hooks/useScrollToTop';
 
 const MainLayout = () => {
   useScrollToTop();
-  
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col bg-paper-100 dark:bg-ink-900 text-ink-800 dark:text-paper-100 selection:bg-accent-600/20">
       <Navbar />
-      <main className="flex-grow pt-16">
+      <main className="flex-grow">
         <Outlet />
       </main>
       <Footer />
@@ -18,4 +18,3 @@ const MainLayout = () => {
 };
 
 export default MainLayout;
-

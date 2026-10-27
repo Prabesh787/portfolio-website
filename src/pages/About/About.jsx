@@ -1,148 +1,168 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Code2, Database, Cpu, Sparkles, BookOpen, Plane } from 'lucide-react';
 import PageWrapper from '../../components/layout/PageWrapper';
 import SectionTitle from '../../components/common/SectionTitle';
-import Card from '../../components/ui/Card';
-import Timeline from './Timeline';
-import { fadeInUp } from '../../styles/animations';
+import SpotlightCard from '../../components/ui/SpotlightCard';
+import Timeline, { experience, education } from './Timeline';
 import { profilePic } from '../../assets/images/images';
+import { easeOut } from '../../styles/animations';
+import { SHOW_GALLERY } from '../../utils/constants';
+
+const focusAreas = [
+  {
+    icon: Code2,
+    title: 'Backend Development',
+    body:
+      'Java + Spring Boot for secure, scalable APIs and the unseen logic that keeps an application reliable.',
+  },
+  {
+    icon: Database,
+    title: 'Database Architecture',
+    body:
+      'Designing and tuning SQL schemas with care for data integrity, query efficiency, and storage cost.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Frontend Exploration',
+    body:
+      'Building modern UIs to understand a request end‑to‑end — and to ship full, considered experiences.',
+  },
+  {
+    icon: Cpu,
+    title: 'AI & Machine Learning',
+    body:
+      'Exploring ML models and data pipelines to weave intelligent, automated layers into traditional software.',
+  },
+  {
+    icon: BookOpen,
+    title: 'Continuous Learning',
+    body:
+      'Following modern backend currents — microservices, observability, cloud‑native deployment.',
+  },
+  {
+    icon: Plane,
+    title: 'Travel-Tech Domain',
+    body:
+      'Years inside a travel agency — air ticketing, fares, reservations and the operations around them — so I build booking and payment systems like Fly Lumbini with the industry\'s real workflows in mind.',
+  },
+];
 
 const About = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
   return (
     <PageWrapper>
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle
-            title="About Me"
-            subtitle="Get to Know Me"
-          />
+      <section className="relative pt-28 pb-24">
+        <div className="container-page">
+          <SectionTitle eyebrow="About" title="A short story." />
 
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <div className="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-primary-600 shadow-lg">
-              {!imageError ? (
-                <img 
-                  src={profilePic} 
-                  alt="Prabesh Bhattarai" 
-                  className="w-full h-full object-cover" 
-                  onLoad={() => setImageLoaded(true)}
-                  onError={() => setImageError(true)}
-                  style={{ display: imageLoaded ? 'block' : 'none' }}
-                />
-              ) : null}
-              {(!imageLoaded && !imageError) && (
-                <div className="w-full h-full bg-gray-300 dark:bg-gray-700 animate-pulse rounded-full"></div>
-              )}
-              {imageError && (
-                <div className="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                  <div className="w-16 h-16 bg-gray-400 dark:bg-gray-600 rounded-full"></div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-24">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: easeOut }}
+              className="lg:col-span-5"
+            >
+              <div className="relative rounded-2xl overflow-hidden border border-ink-100 dark:border-ink-700/60 bg-paper-200 dark:bg-ink-800/40 aspect-[4/5] max-w-sm">
+                {/* backdrop for the transparent cut-out portrait */}
+                <div className="absolute inset-0 bg-code-grid opacity-70" />
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/3 w-72 h-72 rounded-full bg-accent-400/25 dark:bg-accent-600/20 blur-3xl" />
+                {!imgError ? (
+                  <img
+                    src={profilePic}
+                    alt="Prabesh Bhattarai"
+                    className="relative w-full h-full object-contain object-bottom pt-6 px-4"
+                    onError={() => setImgError(true)}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-accent-200 to-paper-300 dark:from-accent-900/30 dark:to-ink-700" />
+                )}
+                <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
+                  <span className="font-mono text-[10px] uppercase tracking-widest bg-paper-100/90 dark:bg-ink-900/80 backdrop-blur px-2 py-1 rounded-full text-ink-700 dark:text-paper-200">
+                    Bhaktapur, NP · 2026
+                  </span>
                 </div>
-              )}
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              Prabesh Bhattarai
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              Backend Developer
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-            <motion.div {...fadeInUp}>
-              <Card>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    Who I Am
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                    I am an aspiring Backend Engineer and current Intern with a passion for architecting the 'unseen' logic of the web. Currently, I am focused on mastering Java and the Spring Boot ecosystem to build secure, high-performance server-side applications.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                    I believe that great software starts with clean, maintainable code and a deep understanding of database design. Every project is a new opportunity for me to solve complex problems and refine my technical craft.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    I believe in writing maintainable code, following best practices, and always
-                    learning something new. Every project is an opportunity to grow and improve.
-                  </p>
-                </div>
-              </Card>
+              </div>
             </motion.div>
 
-            <motion.div {...fadeInUp}>
-              <Card>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    What I Do
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary-600 rounded-full mt-2"></div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          Backend Development
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                         Specializing in Java & Spring Boot to build secure, scalable APIs and the "unseen" logic that ensures application reliability.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary-600 rounded-full mt-2"></div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          Database Architecture
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                          Designing and optimizing SQL database schemas, focusing on data integrity, efficient queries, and high-performance storage.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary-600 rounded-full mt-2"></div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          Frontend Exploration
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                          Expanding my skills in modern UI technologies to understand the full lifecycle of a request and build seamless end-to-end experiences.
-                        </p>
-                      </div>
-                    </div>
-                      <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary-600 rounded-full mt-2"></div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          AI & Machine Learning
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                          Powering the future. I am exploring ML algorithms and data models to integrate intelligent, automated features into traditional software systems
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary-600 rounded-full mt-2"></div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          Continuous Learning
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
-                          Actively exploring modern backend trends, from microservices to cloud-native development.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: easeOut, delay: 0.1 }}
+              className="lg:col-span-7"
+            >
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent-700 dark:text-accent-400 mb-4">
+                Hello — I'm Prabesh
+              </p>
+              <h3 className="font-sans font-semibold text-3xl md:text-4xl leading-[1.05] tracking-tight text-ink-800 dark:text-paper-100">
+                I'm an aspiring backend engineer
+                <span className="text-ink-500 dark:text-ink-300"> drawn to the unseen logic</span>
+                {' '}that holds the web together.
+              </h3>
+              <div className="mt-8 space-y-5 text-ink-600 dark:text-ink-200 leading-relaxed text-pretty">
+                <p>
+                  Now a Software Developer at Lumbini Group, writing
+                  Java + Spring Boot every day, I care about secure, performant server‑side applications and
+                  thoughtful database design — the kind that ages well.
+                </p>
+                <p>
+                  I believe great software starts with clean, maintainable code
+                  and a deep respect for data. Each project is an excuse to
+                  sharpen the craft.
+                </p>
+                <p>
+                  Outside the IDE I read, travel, take photos, and slowly
+                  collect moments{SHOW_GALLERY ? " you'll find on the gallery page" : ''}.
+                </p>
+              </div>
             </motion.div>
           </div>
 
-          <motion.div {...fadeInUp}>
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
-              My Journey
-            </h3>
-            <Timeline />
-          </motion.div>
+          <div className="mb-24">
+            <SectionTitle eyebrow="What I do" title="Focus areas." />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {focusAreas.map((f, i) => {
+                const Icon = f.icon;
+                return (
+                  <motion.div
+                    key={f.title}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 0.6, ease: easeOut, delay: i * 0.05 }}
+                  >
+                    <SpotlightCard className="h-full p-7">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent-50 dark:bg-accent-900/20 text-accent-700 dark:text-accent-400">
+                          <Icon className="w-4 h-4" />
+                        </span>
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-ink-400 dark:text-ink-300">
+                          0{i + 1}
+                        </span>
+                      </div>
+                      <h4 className="font-sans font-semibold text-xl tracking-tight text-ink-800 dark:text-paper-100 mb-2">
+                        {f.title}
+                      </h4>
+                      <p className="text-sm leading-relaxed text-ink-600 dark:text-ink-200">
+                        {f.body}
+                      </p>
+                    </SpotlightCard>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mb-24">
+            <SectionTitle eyebrow="Experience" title="Where I've worked." />
+            <Timeline items={experience} />
+          </div>
+
+          <SectionTitle eyebrow="Education" title="Where I've studied." />
+          <Timeline items={education} />
         </div>
       </section>
     </PageWrapper>
@@ -150,4 +170,3 @@ const About = () => {
 };
 
 export default About;
-

@@ -1,27 +1,27 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import PageWrapper from '../../components/layout/PageWrapper';
 import SectionTitle from '../../components/common/SectionTitle';
 import ProjectFilter from './ProjectFilter';
 import ProjectCard from './ProjectCard';
 import { projects } from '../../data/projects';
-import { staggerContainer } from '../../styles/animations';
+import { easeOut } from '../../styles/animations';
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const filteredProjects =
+  const filtered =
     activeCategory === 'all'
       ? projects
-      : projects.filter((project) => project.category === activeCategory);
+      : projects.filter((p) => p.category === activeCategory);
 
   return (
     <PageWrapper>
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-28 pb-24">
+        <div className="container-page">
           <SectionTitle
-            title="My Projects"
-            subtitle="Portfolio"
+            eyebrow={`${projects.length} projects`}
+            title="The work, in order of obsession."
           />
 
           <ProjectFilter
@@ -30,22 +30,25 @@ const Projects = () => {
           />
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            animate="animate"
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-10"
           >
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project, i) => (
+                <ProjectCard key={project.id} project={project} index={i} />
+              ))}
+            </AnimatePresence>
           </motion.div>
 
-          {filteredProjects.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-600 dark:text-gray-400 text-lg">
-                No projects found in this category.
-              </p>
-            </div>
+          {filtered.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: easeOut }}
+              className="text-center py-20 text-ink-500 dark:text-ink-300 font-mono text-sm uppercase tracking-widest"
+            >
+              No projects in this category — yet.
+            </motion.div>
           )}
         </div>
       </section>
@@ -54,4 +57,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

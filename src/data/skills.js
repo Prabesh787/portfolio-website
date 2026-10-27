@@ -25,8 +25,10 @@ export const skills = [
     category: "Tools & Others",
     items: [
       { name: "Git", level: 50, icon: "📦" },
-      { name: "Postman", level: 60, icon: "🐳" },
-    
+      { name: "Postman", level: 60, icon: "📮" },
+      { name: "Docker", level: 40, icon: "🐳" },
+      { name: "CI/CD", level: 40, icon: "🔁" },
+      { name: "AWS", level: 20, icon: "☁️" },
     ]
   },
 ];

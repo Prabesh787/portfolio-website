@@ -1,90 +1,91 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { socialLinks } from '../../data/socials';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
-import { signature } from '../../assets/images/images';
-
-const iconMap = {
-  github: Github,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  mail: Mail,
-};
+import { Mail, ArrowUpRight } from 'lucide-react';
+import { socialIcons } from './SocialLinks';
+import { NAV_LINKS } from '../../utils/constants';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
-            <motion.img
-              src={signature}
-              alt="Prabesh Bhattarai Signature"
-              className="h-10 mb-4 dark:invert"
-              whileHover={{ scale: 1.05 }}
-            />
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              A modern portfolio showcasing my projects and skills.
+    <footer className="relative border-t border-ink-100 dark:border-ink-700/40 bg-paper-100 dark:bg-ink-900">
+      <div className="container-page py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          <div className="md:col-span-5">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent-700 dark:text-accent-400 mb-3">
+              Get in touch
             </p>
+            <h3 className="font-sans font-semibold text-2xl md:text-3xl leading-tight tracking-tight text-ink-800 dark:text-paper-100">
+              Have an idea?
+              <br />
+              <span className="text-ink-500 dark:text-ink-300">Let's build it.</span>
+            </h3>
+            <a
+              href="mailto:pbhattrai88@gmail.com"
+              className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-ink-700 dark:text-paper-200 link-underline"
+            >
+              pbhattrai88@gmail.com
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h4>
+          <div className="md:col-span-3">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-500 dark:text-ink-300 mb-4">
+              Sitemap
+            </p>
             <ul className="space-y-2">
-              <li>
-                <a href="/" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="/projects" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
-                  Contact
-                </a>
-              </li>
+              {NAV_LINKS.map(({ name: label, path }) => (
+                <li key={path}>
+                  <Link
+                    to={path}
+                    className="text-ink-600 dark:text-ink-200 hover:text-ink-800 dark:hover:text-paper-100 link-underline text-sm"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Social Links */}
-          <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Connect</h4>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => {
-                const Icon = iconMap[social.icon] || Mail;
+          <div className="md:col-span-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-500 dark:text-ink-300 mb-4">
+              Elsewhere
+            </p>
+            <ul className="space-y-2">
+              {socialLinks.map((s) => {
+                const Icon = socialIcons[s.icon] || Mail;
                 return (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 ${social.color} transition-colors`}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label={social.name}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </motion.a>
+                  <li key={s.name}>
+                    <motion.a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between py-1 text-ink-600 dark:text-ink-200 hover:text-ink-800 dark:hover:text-paper-100 transition-colors"
+                      whileHover={{ x: 2 }}
+                    >
+                      <span className="flex items-center gap-3 text-sm">
+                        <Icon className="w-4 h-4 opacity-70 group-hover:opacity-100" />
+                        {s.name}
+                        <span className="font-mono text-[11px] text-ink-400 dark:text-ink-400">
+                          {s.handle}
+                        </span>
+                      </span>
+                      <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    </motion.a>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            © {currentYear} Portfolio. All rights reserved.
+        <div className="mt-14 pt-8 border-t border-ink-100 dark:border-ink-700/40 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-300">
+            © {currentYear} Prabesh Bhattarai · Crafted in Bhaktapur
+          </p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-300">
+            v2 · warm · tech · minimal
           </p>
         </div>
       </div>
@@ -93,4 +94,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
